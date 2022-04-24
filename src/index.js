@@ -1,6 +1,6 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
-import { fetchCountries } from './js/fetchCountries';
+
 
 
 var _ = require('lodash');
@@ -71,4 +71,15 @@ function renderCountry([{ name, capital, population, flags, languages }]) {
   <li> Languages : ${Object.values(languages)}</li>
   </ul> </div>
   `;
+  }
+  function fetchCountries(name) {
+    return fetch(
+      `https:restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`,
+    ).then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+  
+      return response.json();
+    });
   }
